@@ -33,10 +33,10 @@ describe('app routes', () => {
 
     const favorite = 
       {
-        title:'pulp fiction',
+        title:'Pulp Fiction',
         year:1994,
         overview:'A burger-loving hit man, his philosophical partner, a drug-addled gangster\'s moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.',
-        poster: 'http://www.placekitten.com/300/300',
+        poster: '/plnlrtBUULT0rh3Xsjmpubiso3L.jpg',
         rating:85,
         movie_db_id:680
       };
@@ -80,37 +80,30 @@ describe('app routes', () => {
         .expect(200);
 
       expect(data.body).toEqual(dbFavorite);
+
+      const data2 = await fakeRequest(app)
+        .get('/api/favorites')
+        
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data2.body).toEqual([]);
+
     });
 
-    // test('returns animals', async() => {
 
-    //   const expectation = [
-    //     {
-    //       'id': 1,
-    //       'name': 'bessie',
-    //       'coolfactor': 3,
-    //       'owner_id': 1
-    //     },
-    //     {
-    //       'id': 2,
-    //       'name': 'jumpy',
-    //       'coolfactor': 4,
-    //       'owner_id': 1
-    //     },
-    //     {
-    //       'id': 3,
-    //       'name': 'spot',
-    //       'coolfactor': 10,
-    //       'owner_id': 1
-    //     }
-    //   ];
 
-    //   const data = await fakeRequest(app)
-    //     .get('/animals')
-    //     .expect('Content-Type', /json/)
-    //     .expect(200);
+    test('fetch movies', async() => {
 
-    //   expect(data.body).toEqual(expectation);
-    // });
+      const data = await fakeRequest(app)
+        .get('/api/movies')
+        .set('Authorization', token)
+        .query({ search: 'pulp fiction' })
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body[0]).toEqual(favorite);
+    });
   });
 });
