@@ -34,7 +34,7 @@ describe('app routes', () => {
     const favorite = 
       {
         title:'Pulp Fiction',
-        year:1994,
+        year:'1994-09-10',
         overview:'A burger-loving hit man, his philosophical partner, a drug-addled gangster\'s moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.',
         poster: '/plnlrtBUULT0rh3Xsjmpubiso3L.jpg',
         rating:85,
